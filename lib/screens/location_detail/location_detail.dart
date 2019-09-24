@@ -5,23 +5,26 @@ import 'text_section.dart';
 import '../../models/location.dart';
 
 class LocationDetail extends StatelessWidget {
- @override
- Widget build(BuildContext context) {
-   final locations = Location.fetchAll();
-   final location = locations.first;
+  final int _locationID;
 
-   return Scaffold(
-     appBar: AppBar(
-       title: Text(location.name),
-     ),
-     body: Column(
-       mainAxisAlignment: MainAxisAlignment.start,
-       crossAxisAlignment: CrossAxisAlignment.stretch,
-       children: <Widget>[
-         ImageBanner(location.imagePath),
+  LocationDetail(this._locationID);
 
-       ]..addAll(textSections(location)),
-     ),
+  @override
+  Widget build(BuildContext context) {
+    final location = Location.fetchByID(_locationID);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(location.name),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          ImageBanner(location.imagePath),
+
+        ]..addAll(textSections(location)),
+      ),
     );
  }
  List<Widget> textSections(Location location) {
